@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "React-Native-CRUD",
+    "slug": "React-Native-CRUD",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "scheme": "React-Native-CRUD"
+  }
+}
