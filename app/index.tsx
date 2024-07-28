@@ -1,14 +1,22 @@
-import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, Button, FlatList, Alert, StyleSheet } from 'react-native';
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  Button,
+  FlatList,
+  Alert,
+  StyleSheet,
+} from "react-native";
 
-const baseUrl = "http://192.168.81.208:8080/api/v1/customer";
+const baseUrl = "http://192.168.81.208:8080/api/v1/customer"; // Get this from typing this command in the CMD 'ipconfig'
 
 export default function Index() {
-  const [customerId, setCustomerId] = useState('');
-  const [customerName, setCustomerName] = useState('');
-  const [customerAddress, setCustomerAddress] = useState('');
-  const [customerSalary, setCustomerSalary] = useState('');
+  const [customerId, setCustomerId] = useState("");
+  const [customerName, setCustomerName] = useState("");
+  const [customerAddress, setCustomerAddress] = useState("");
+  const [customerSalary, setCustomerSalary] = useState("");
   const [customers, setCustomers] = useState([]);
 
   const handleSaveCustomer = async () => {
@@ -16,28 +24,30 @@ export default function Index() {
       id: customerId,
       name: customerName,
       address: customerAddress,
-      salary: customerSalary
+      salary: customerSalary,
     };
 
     try {
       await axios.post(`${baseUrl}/saveCustomer`, customer, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" },
       });
-      Alert.alert('Success', 'Customer Saved Successfully!');
+      Alert.alert("Success", "Customer Saved Successfully!");
       loadAllCustomers();
     } catch (error) {
-      Alert.alert('Error', 'Customer Save Error!');
+      Alert.alert("Error", "Customer Save Error!");
     }
   };
 
   const handleSearchCustomer = async () => {
     try {
-      const response = await axios.get(`${baseUrl}/searchCustomer/${customerId}`);
+      const response = await axios.get(
+        `${baseUrl}/searchCustomer/${customerId}`
+      );
       setCustomerName(response.data.name);
       setCustomerAddress(response.data.address);
       setCustomerSalary(response.data.salary);
     } catch (error) {
-      Alert.alert('Error', 'Customer Search Error!');
+      Alert.alert("Error", "Customer Search Error!");
     }
   };
 
@@ -46,27 +56,27 @@ export default function Index() {
       id: customerId,
       name: customerName,
       address: customerAddress,
-      salary: customerSalary
+      salary: customerSalary,
     };
 
     try {
       await axios.put(`${baseUrl}/updateCustomer`, customer, {
-        headers: { 'Content-Type': 'application/json' }
+        headers: { "Content-Type": "application/json" },
       });
-      Alert.alert('Success', 'Customer Updated Successfully!');
+      Alert.alert("Success", "Customer Updated Successfully!");
       loadAllCustomers();
     } catch (error) {
-      Alert.alert('Error', 'Customer Update Error!');
+      Alert.alert("Error", "Customer Update Error!");
     }
   };
 
   const handleDeleteCustomer = async () => {
     try {
       await axios.delete(`${baseUrl}/deleteCustomer/${customerId}`);
-      Alert.alert('Success', 'Customer Deleted Successfully!');
+      Alert.alert("Success", "Customer Deleted Successfully!");
       loadAllCustomers();
     } catch (error) {
-      Alert.alert('Error', 'Customer Delete Error!');
+      Alert.alert("Error", "Customer Delete Error!");
     }
   };
 
@@ -75,7 +85,7 @@ export default function Index() {
       const response = await axios.get(`${baseUrl}/loadAllCustomers`);
       setCustomers(response.data);
     } catch (error) {
-      Alert.alert('Error', 'Load All Customers Error!');
+      Alert.alert("Error", "Load All Customers Error!");
     }
   };
 
@@ -140,30 +150,30 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     marginBottom: 16,
   },
   input: {
     height: 40,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderWidth: 1,
     marginBottom: 12,
     paddingHorizontal: 8,
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 16,
   },
   row: {
-    flexDirection: 'row',
+    flexDirection: "row",
     paddingVertical: 8,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
     borderBottomWidth: 1,
   },
   cell: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });
